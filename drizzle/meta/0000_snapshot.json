@@ -1,7 +1,7 @@
 {
   "version": "1",
   "dialect": "singlestore",
-  "id": "050662ac-9601-4114-891b-2b68e5a128e3",
+  "id": "164b936c-a7e7-420f-9d9b-9eebbb64b77e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "commentary_table": {
@@ -39,28 +39,28 @@
           "name": "latency",
           "type": "float",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
-        "win_probability": {
-          "name": "win_probability",
+        "warriors_win_probability": {
+          "name": "warriors_win_probability",
           "type": "float",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "warriors_score": {
           "name": "warriors_score",
           "type": "float",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "cavaliers_score": {
           "name": "cavaliers_score",
           "type": "float",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "game_clock": {

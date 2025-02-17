@@ -3,10 +3,10 @@ CREATE TABLE `commentary_table` (
 	`timestamp` timestamp NOT NULL,
 	`commentary` text NOT NULL,
 	`embedding` vector(1536, F32),
-	`latency` float,
-	`win_probability` float,
-	`warriors_score` float,
-	`cavaliers_score` float,
+	`latency` float NOT NULL,
+	`warriors_win_probability` float NOT NULL,
+	`warriors_score` float NOT NULL,
+	`cavaliers_score` float NOT NULL,
 	`game_clock` varchar(10) NOT NULL,
 	CONSTRAINT `commentary_table_id` PRIMARY KEY(`id`)
 );

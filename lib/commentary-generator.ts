@@ -1,5 +1,5 @@
 import { processFrame } from "@/lib/frame-processor";
-import { generateCommentaryWithOpenAI } from "@/lib/openAI-client";
+import { generateGeminiCommentary } from "@/lib/gemini-client";
 
 export async function generateCommentary(
   imageData: string,
@@ -19,15 +19,12 @@ export async function generateCommentary(
     console.log("Encoded image length:", encodedImage.length);
 
     try {
-      const { commentary, embedding } = await generateCommentaryWithOpenAI(
-        encodedImage
-      );
+      const { commentary } = await generateGeminiCommentary(encodedImage);
+      //generateCommentaryWithOpenAI(encodedImage);
       console.log("Generated commentary:", commentary);
-      console.log("Generated embedding:", embedding);
       return {
         timestamp: new Date().toISOString(),
         text: commentary,
-        embedding: embedding,
       };
     } catch (groqError) {
       console.error("Error in generateCommentaryWithGroq:", groqError);

@@ -1,8 +1,8 @@
 {
   "version": "1",
   "dialect": "singlestore",
-  "id": "7a564e28-4097-4a86-9215-eef35849817d",
-  "prevId": "050662ac-9601-4114-891b-2b68e5a128e3",
+  "id": "c9f92548-c14d-435a-a85b-215acfac44ee",
+  "prevId": "164b936c-a7e7-420f-9d9b-9eebbb64b77e",
   "tables": {
     "commentary_table": {
       "name": "commentary_table",
@@ -39,7 +39,7 @@
           "name": "latency",
           "type": "float",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "warriors_win_probability": {
@@ -67,7 +67,7 @@
           "name": "game_clock",
           "type": "varchar(10)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         }
       },
@@ -86,9 +86,7 @@
   "_meta": {
     "schemas": {},
     "tables": {},
-    "columns": {
-      "\"commentary_table\".\"win_probability\"": "\"commentary_table\".\"warriors_win_probability\""
-    }
+    "columns": {}
   },
   "internal": {
     "tables": {},

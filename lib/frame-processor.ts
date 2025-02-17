@@ -26,9 +26,7 @@ export async function processFrame(
       .jpeg({ quality: 80 })
       .toBuffer();
 
-    const encodedImage = `data:image/jpeg;base64,${compressedImage.toString(
-      "base64"
-    )}`;
+    const encodedImage = compressedImage.toString("base64");
     console.log("Image compressed, new size:", encodedImage.length);
 
     // Generate a simple frame description

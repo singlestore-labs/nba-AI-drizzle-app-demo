@@ -64,7 +64,7 @@ export function Analytics({ isDarkMode }: AnalyticsProps) {
       (acc, { latency }) => acc + latency,
       0
     );
-    const avgLatency = totalLatency / latestLatency.length;
+    const avgLatency = totalLatency / (latestLatency.length * 1000);
 
     return `${avgLatency.toFixed(2)}ms`;
   }, [analyticsData, isLoading]);

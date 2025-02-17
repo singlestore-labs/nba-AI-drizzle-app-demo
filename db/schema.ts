@@ -18,5 +18,5 @@ export const commentaryTable = singlestoreTable("commentary_table", {
   warriors_win_probability: float().notNull(),
   warriors_score: float().notNull(),
   cavaliers_score: float().notNull(),
-  game_clock: varchar({ length: 10 }).notNull(),
+  game_clock: varchar({ length: 10 }),
 });

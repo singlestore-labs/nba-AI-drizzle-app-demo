@@ -2,23 +2,18 @@
 
 import { Analytics } from "@/app/analytics";
 import Chat from "@/app/chat";
-import { Button } from "@/components/lib/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/lib/card";
+import { Card, CardHeader, CardTitle } from "@/components/lib/card";
+import { Navbar } from "@/components/lib/navbar";
 import Video from "@/components/refs/video";
 import { CommentaryRequestBody } from "@/pages/api/commentaries";
-import { Moon, Sun } from "lucide-react";
-import Link from "next/link";
 import { ElementRef, useCallback, useEffect, useRef, useState } from "react";
+
+type CommentaryType = "ai" | "user";
 
 export type Commentary = {
   timestamp: string;
   text: string;
-  type: "ai" | "user";
+  type: CommentaryType;
 };
 
 const COMMENTARY_GENERATION_INTERVAL = 20000;
@@ -95,13 +90,6 @@ export default function NBAAnalysis() {
       canvas.width = videoRef?.current?.videoWidth || 0;
       canvas.height = videoRef?.current?.videoHeight || 0;
 
-      console.log(
-        "Generating commentary from video frame:",
-        canvas.width,
-        "x",
-        canvas.height
-      );
-
       const context = canvas?.getContext("2d");
       if (context && videoRef?.current) {
         context.drawImage(videoRef?.current, 0, 0, canvas.width, canvas.height);
@@ -148,44 +136,15 @@ export default function NBAAnalysis() {
         isDarkMode ? "bg-gray-900 text-gray-100" : "bg-nba-white text-nba-blue"
       } transition-colors duration-200`}
     >
-      {/* Header */}
-      <header
-        className={`${
-          isDarkMode ? "bg-gray-800" : "bg-nba-white"
-        } shadow-md fixed top-0 w-full z-50`}
-      >
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-2xl font-bold bg-gradient-to-r from-nba-blue to-nba-red dark:from-nba-red dark:to-nba-white bg-clip-text text-transparent"
-          >
-            NBA OnTheFly
-          </Link>
-          <nav className="flex gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={toggleDarkMode}
-              className={`${
-                isDarkMode
-                  ? "bg-gray-700 text-gray-100"
-                  : "bg-nba-blue text-nba-white"
-              }`}
-            >
-              {isDarkMode ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </Button>
-          </nav>
-        </div>
-      </header>
+      <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
       <main className="container mx-auto px-4 pt-24 pb-8">
         <div className="mb-8">
+          {/* Video and Chat Section */}
+
           <div className="grid lg:grid-cols-[1fr_400px] gap-6 lg:h-[600px]">
-            {/* Video and Chat Section */}
+            {/* Video Section */}
+
             <div className="space-y-6">
               <Card
                 className={`overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-xl h-full
@@ -203,6 +162,8 @@ export default function NBAAnalysis() {
               </Card>
             </div>
 
+            {/* Chat Section */}
+
             <div className="space-y-4 lg:h-[600px]">
               <Chat
                 isDarkMode={isDarkMode}
@@ -211,7 +172,9 @@ export default function NBAAnalysis() {
               />
             </div>
           </div>
+
           {/* Analytics Section */}
+
           <Card
             className={`mt-4 shadow-lg transition-shadow duration-300 hover:shadow-xl ${
               isDarkMode

@@ -16,7 +16,7 @@ export type Commentary = {
   type: CommentaryType;
 };
 
-const COMMENTARY_GENERATION_INTERVAL = 20000;
+const COMMENTARY_GENERATION_INTERVAL_MS = 20 * 1000; // 20 seconds
 
 export default function NBAAnalysis() {
   const videoRef = useRef<ElementRef<typeof Video>>(null);
@@ -31,6 +31,7 @@ export default function NBAAnalysis() {
     setIsDarkMode(!isDarkMode);
   };
 
+  // Chat commentaries
   const [commentaries, setCommentaries] = useState<Commentary[]>([
     {
       timestamp: new Date().toISOString(),
@@ -49,17 +50,17 @@ export default function NBAAnalysis() {
     },
   ]);
 
-  // Function to start commentaries fetching interval
+  // Function to start fetiching commentaries from the database
   const startCommentaryInterval = useCallback(() => {
     console.log("Starting commentaries interval");
     if (!commentaryIntervalRef.current) {
       commentaryIntervalRef.current = setInterval(() => {
         fetchCommentary(videoRef);
-      }, COMMENTARY_GENERATION_INTERVAL);
+      }, COMMENTARY_GENERATION_INTERVAL_MS);
     }
   }, [videoRef]);
 
-  // Function to stop commentaries fetching interval
+  // Function to stop fetching commentaries from the database
   const stopCommentaryInterval = useCallback(() => {
     if (commentaryIntervalRef.current) {
       clearInterval(commentaryIntervalRef.current);
@@ -67,15 +68,31 @@ export default function NBAAnalysis() {
     }
   }, [videoRef]);
 
+  // When the video is playing, start the commentaries interval
   const handlePlay = () => {
     console.log("Video is playing, starting commentaries interval");
     fetchCommentary(videoRef);
     startCommentaryInterval();
   };
 
+  // When the video is paused, stop the commentaries interval
   const handlePause = () => {
     stopCommentaryInterval();
   };
+
+  // Function to get image data from the video element
+  function getImageDataFromCanvas(canvas: HTMLCanvasElement) {
+    canvas.width = videoRef?.current?.videoWidth || 0;
+    canvas.height = videoRef?.current?.videoHeight || 0;
+
+    const context = canvas?.getContext("2d");
+    if (context && videoRef?.current) {
+      context.drawImage(videoRef?.current, 0, 0, canvas.width, canvas.height);
+    }
+
+    const imageData = canvas.toDataURL("image/jpeg");
+    return imageData;
+  }
 
   const fetchCommentary = async (
     videoRef: React.RefObject<HTMLVideoElement>
@@ -87,15 +104,7 @@ export default function NBAAnalysis() {
 
     try {
       const canvas = document.createElement("canvas");
-      canvas.width = videoRef?.current?.videoWidth || 0;
-      canvas.height = videoRef?.current?.videoHeight || 0;
-
-      const context = canvas?.getContext("2d");
-      if (context && videoRef?.current) {
-        context.drawImage(videoRef?.current, 0, 0, canvas.width, canvas.height);
-      }
-
-      const imageData = canvas.toDataURL("image/jpeg");
+      const imageData = getImageDataFromCanvas(canvas);
 
       const body: CommentaryRequestBody = {
         imageData,
@@ -103,6 +112,7 @@ export default function NBAAnalysis() {
         height: canvas.height,
       };
 
+      // Call the commentaries API
       const response = await fetch("/api/commentaries", {
         method: "POST",
         headers: {
@@ -111,8 +121,9 @@ export default function NBAAnalysis() {
         body: JSON.stringify(body),
       });
 
-      const data = await response.json();
+      const data: Commentary = await response.json();
 
+      // Add the AI generated commentary to the chat
       if (data.text) {
         setCommentaries((prev) => [
           ...prev,

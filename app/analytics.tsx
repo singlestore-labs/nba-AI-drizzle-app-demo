@@ -1,23 +1,27 @@
 "use client";
 
+import { Card, CardContent } from "@/components/lib/card";
+import { AnalyticsData } from "@/pages/api/analytics";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  LineChart,
-  Line,
-  BarChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
-import { Card, CardContent } from "@/components/lib/card";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { AnalyticsData } from "@/pages/api/analytics";
 
-interface AnalyticsProps {
+const loadingText = "loading...";
+
+type AnalyticsProps = {
   isDarkMode: boolean;
-}
+};
+
+const ANALYTICS_FETCH_INTERVAL_MS = 2000; // 2 seconds
 
 export function Analytics({ isDarkMode }: AnalyticsProps) {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,12 +29,18 @@ export function Analytics({ isDarkMode }: AnalyticsProps) {
     null
   );
 
-  const loadingText = "loading...";
+  const cardBg = isDarkMode ? "bg-gray-700" : "bg-gray-100";
+  const textColor = isDarkMode ? "text-gray-100" : "text-nba-blue";
 
   const fetchLatestAnalytics = useCallback(async () => {
     try {
       const response = await fetch("/api/analytics");
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error("Failed to fetch latest analytics");
+      }
+
+      const data: AnalyticsData = await response.json();
+
       setAnalyticsData(data);
     } catch (error) {
       console.error("Error fetching latest analytics:", error);
@@ -39,11 +49,13 @@ export function Analytics({ isDarkMode }: AnalyticsProps) {
     }
   }, []);
 
+  // Fetch latest analytics every 2 seconds
   useEffect(() => {
     fetchLatestAnalytics();
+
     const intervalId = setInterval(() => {
       fetchLatestAnalytics();
-    }, 2000); // Fetch analytics every 2 seconds
+    }, ANALYTICS_FETCH_INTERVAL_MS);
 
     return () => clearInterval(intervalId);
   }, [fetchLatestAnalytics]);
@@ -195,9 +207,6 @@ export function Analytics({ isDarkMode }: AnalyticsProps) {
     return Math.max(maxWarriorsProbability, maxCavaliersProbability) + 5;
   }, [probabilityData]);
 
-  const cardBg = isDarkMode ? "bg-gray-700" : "bg-gray-100";
-  const textColor = isDarkMode ? "text-gray-100" : "text-nba-blue";
-
   return (
     <CardContent className="grid gap-4">
       <div className="grid grid-cols-2 gap-4">
@@ -257,6 +266,7 @@ export function Analytics({ isDarkMode }: AnalyticsProps) {
       </div>
 
       {/* Scores Over Time */}
+
       <Card className={`${cardBg} ${textColor}`}>
         <CardContent className="p-4">
           <h3 className="text-sm font-semibold mb-2">
@@ -329,6 +339,7 @@ export function Analytics({ isDarkMode }: AnalyticsProps) {
 
       <div className="grid gap-4">
         {/* Each Team's Win Probability */}
+
         <Card className={`${cardBg} ${textColor} col-span-2`}>
           <CardContent className="p-4">
             <h3 className="text-sm font-semibold mb-2">

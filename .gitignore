@@ -3,6 +3,9 @@
 # dependencies
 /node_modules
 
+# drizzle
+/drizzle
+
 # next.js
 /.next/
 /out/

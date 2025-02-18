@@ -27,23 +27,8 @@ export async function generateGeminiCommentary(
   try {
     const startTime = Date.now();
 
-    const textPart = `You are a sports commentator for ESPN. You are tasked with commenting on several moments from the 2016 NBA Finals Game 7 between the Golden State Warriors and the Cleveland Cavaliers. You'll be presented with an image from the game, and you should generate a commentary based on the game score and the time remaining in the 4th quarter.
-  
-  The game score is in a box to the right of ESPN. The teams' abbreviations are CLE for the Cavaliers and GS for the Warriors, and each team's score is shown on the right side of the abbreviation. The game clock is on the right side of the game score, next to the 4th Quarter indicator. If the scoreboard is not visible in the image, assume the game score to be the last known score.
-  
-  Make the comments as engaging and exciting as possible and don't repeat the same commentary for different moments. And also make them brief and to the point.
-  
-  Write a commentary for the frame moment based on the game score and the time remaining in the 4th quarter.
-  
-  Also, provide the warriors score, cavaliers score, warriors win probability, the game clock, and the latency of the commentary.
-  
-  The output should be a JSON object with the following fields:
-  - commentary (string): The generated commentary text
-  - warriorsScore (int): The Golden State Warriors' score at that moment
-  - cavaliersScore (int): The Cleveland Cavaliers' score at that moment
-  - warriorsWinProbability (int): The Golden State Warriors' win probability at that moment. This should take into account the current score and time remaining in the game
-  - gameClock (string): The game time remaining at that moment
-`;
+    // Write your prompt here
+    const textPart;
 
     const imagePart = {
       inlineData: {

@@ -1,7 +1,7 @@
 {
   "version": "1",
   "dialect": "singlestore",
-  "id": "164b936c-a7e7-420f-9d9b-9eebbb64b77e",
+  "id": "da73f280-9878-4646-871d-dfad0e3c35a4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "commentary_table": {
@@ -67,7 +67,7 @@
           "name": "game_clock",
           "type": "varchar(10)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         }
       },

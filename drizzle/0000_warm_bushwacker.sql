@@ -7,6 +7,6 @@ CREATE TABLE `commentary_table` (
 	`warriors_win_probability` float NOT NULL,
 	`warriors_score` float NOT NULL,
 	`cavaliers_score` float NOT NULL,
-	`game_clock` varchar(10) NOT NULL,
+	`game_clock` varchar(10),
 	CONSTRAINT `commentary_table_id` PRIMARY KEY(`id`)
 );

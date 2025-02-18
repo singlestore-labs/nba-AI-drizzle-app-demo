@@ -43,7 +43,13 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
    DB_URL=your_singlestore_db_url
    ```
 
-3. Get the Gemini API key from [Google Gemini API Documentation](https://ai.google.dev/gemini-api/docs/api-key) and add it to your `.env` file:
+3. Create the `commentary_table` in the SingleStore database using Drizzle
+
+   ```shell
+   pnpm migrate
+   ```
+
+4. Get the Gemini API key from [Google Gemini API Documentation](https://ai.google.dev/gemini-api/docs/api-key) and add it to your `.env` file:
 
    ```env
    GEMINI_API_KEY=your_gemini_api_key

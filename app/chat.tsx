@@ -120,6 +120,7 @@ const Chat: React.FC<ChatProps> = ({
           >
             <div className="flex gap-2">
               <Input
+                value={message}
                 placeholder="Type your message..."
                 className={`flex-auto
                   ${

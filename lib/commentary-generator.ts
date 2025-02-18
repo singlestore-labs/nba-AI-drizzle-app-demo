@@ -7,10 +7,6 @@ export async function generateCommentary(
   height: number
 ) {
   try {
-    console.log("Generating commentary for frame:", width, "x", height);
-    console.log("Image data type:", typeof imageData);
-    console.log("Image data length:", imageData ? imageData.length : "N/A");
-
     if (!imageData) {
       throw new Error("No image data provided");
     }
@@ -21,6 +17,7 @@ export async function generateCommentary(
     try {
       const { commentary } = await generateGeminiCommentary(encodedImage);
       console.log("Generated commentary:", commentary);
+
       return {
         timestamp: new Date().toISOString(),
         text: commentary,

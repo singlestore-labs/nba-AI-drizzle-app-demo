@@ -1,10 +1,7 @@
 "use server";
 
-import { db } from "@/db";
-import { commentaryTable } from "@/db/schema";
-import { asc } from "drizzle-orm";
-import { NextApiRequest, NextApiResponse } from "next";
 import { StatusCodes } from "http-status-codes";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export type AnalyticsData = {
   latestCommentaries: { commentary: string; timestamp: Date }[];
@@ -31,60 +28,22 @@ export default async function handler(
       console.log("Fetching analytics data from SingleStore...");
 
       // Fetch commentaries over time
-      const commentariesOverTime = await db
-        .select({
-          date: commentaryTable.timestamp,
-          count: db.$count(commentaryTable),
-        })
-        .from(commentaryTable)
-        .groupBy(commentaryTable.timestamp)
-        .orderBy(asc(commentaryTable.timestamp));
+      const commentariesOverTime;
 
       // Fetch the last 10 commentary entries
-      const latestCommentaries = await db
-        .select({
-          commentary: commentaryTable.commentary,
-          timestamp: commentaryTable.timestamp,
-        })
-        .from(commentaryTable)
-        .orderBy(asc(commentaryTable.timestamp))
-        .limit(5);
+      const latestCommentaries;
 
       // Fetch the latest 10 latency entries
-      const latestLatency = await db
-        .select({
-          timestamp: commentaryTable.timestamp,
-          latency: commentaryTable.latency ?? 0,
-        })
-        .from(commentaryTable)
-        .orderBy(asc(commentaryTable.timestamp))
-        .limit(10);
+      const latestLatency;
 
       // Calculate total commentaries
-      const totalCommentaries = await db
-        .select({
-          total: db.$count(commentaryTable),
-        })
-        .from(commentaryTable);
+      const totalCommentaries;
 
       // Fetch scores over time
-      const scoresOverTime = await db
-        .select({
-          gameTime: commentaryTable.game_clock,
-          warriorsScore: commentaryTable.warriors_score,
-          cavaliersScore: commentaryTable.cavaliers_score,
-        })
-        .from(commentaryTable)
-        .orderBy(asc(commentaryTable.timestamp));
+      const scoresOverTime;
 
       // Fetch win probability over time
-      const warriorsProbabilityOverTime = await db
-        .select({
-          gameTime: commentaryTable.game_clock,
-          warriorsWinProbability: commentaryTable.warriors_win_probability,
-        })
-        .from(commentaryTable)
-        .orderBy(asc(commentaryTable.timestamp));
+      const warriorsProbabilityOverTime;
 
       const analyticsData: AnalyticsData = {
         latestCommentaries,

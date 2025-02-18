@@ -4,14 +4,14 @@ import { Commentary } from "@/app/page";
 import { Button } from "@/components/lib/button";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
   CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/lib/card";
 import { Input } from "@/components/lib/input";
 import { ScrollArea } from "@/components/lib/scroll-area";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 type ChatProps = {
   isDarkMode: boolean;
@@ -26,15 +26,15 @@ const Chat: React.FC<ChatProps> = ({
 }) => {
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
-  const [message, setMessage] = useState("");
+  const [userMessage, setUserMessage] = useState("");
 
-  // Define the onSendMessage function to handle user messages
-  const onSendMessage = useCallback((message: string) => {
+  // Function that handles sending a userMessage to the chat
+  const onSendMessage = useCallback((userMessage: string) => {
     setCommentaries((prev) => [
       ...prev,
       {
         timestamp: new Date().toISOString(),
-        text: message,
+        text: userMessage,
         type: "user",
       },
     ]);
@@ -42,20 +42,13 @@ const Chat: React.FC<ChatProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (message.trim()) {
+    if (userMessage.trim()) {
       if (onSendMessage) {
-        onSendMessage(message);
+        onSendMessage(userMessage);
       }
-      setMessage("");
+      setUserMessage("");
     }
   };
-
-  useEffect(() => {
-    // Scroll to the bottom of the chat box when new messages are added
-    if (chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-    }
-  }, [commentaries]);
 
   return (
     <Card
@@ -120,15 +113,15 @@ const Chat: React.FC<ChatProps> = ({
           >
             <div className="flex gap-2">
               <Input
-                value={message}
-                placeholder="Type your message..."
+                value={userMessage}
+                placeholder="Type your userMessage..."
                 className={`flex-auto
                   ${
                     isDarkMode
                       ? "bg-gray-700 border-gray-600"
                       : "bg-nba-blue/20 border-nba-blue/40"
                   }`}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => setUserMessage(e.target.value)}
               />
               <Button
                 className={`${

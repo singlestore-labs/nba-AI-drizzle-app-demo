@@ -2,6 +2,7 @@
 
 import { generateCommentary } from "@/lib/commentary-generator";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { StatusCodes } from "http-status-codes";
 
 export type CommentaryRequestBody = {
   imageData: string;
@@ -47,16 +48,18 @@ export default async function handler(
         throw new Error(commentary.errorMessage);
       }
 
-      res.status(200).json(commentary);
+      res.status(StatusCodes.OK).json(commentary);
     } catch (error) {
       const errorMessage = (error as Error).message;
       console.error("Error in generating commentary:", error);
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         text: `Error generating commentary: ${errorMessage}`,
         error: true,
       });
     }
   } else {
-    res.status(405).json({ error: "Method not allowed" });
+    res
+      .status(StatusCodes.METHOD_NOT_ALLOWED)
+      .json({ error: "Method not allowed" });
   }
 }

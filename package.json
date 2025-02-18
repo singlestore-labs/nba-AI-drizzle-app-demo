@@ -48,6 +48,7 @@
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.1",
     "embla-carousel-react": "8.5.1",
+    "http-status-codes": "^2.3.0",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
     "mysql2": "^3.12.0",

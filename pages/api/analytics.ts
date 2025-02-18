@@ -4,6 +4,7 @@ import { db } from "@/db";
 import { commentaryTable } from "@/db/schema";
 import { asc } from "drizzle-orm";
 import { NextApiRequest, NextApiResponse } from "next";
+import { StatusCodes } from "http-status-codes";
 
 export type AnalyticsData = {
   latestCommentaries: { commentary: string; timestamp: Date }[];
@@ -11,18 +12,14 @@ export type AnalyticsData = {
   latestLatency: { timestamp: Date; latency: number }[];
   commentariesOverTime: { date: Date; count: number }[];
   scoresOverTime: {
-    gameTime: string;
+    gameTime: string | null;
     warriorsScore: number;
     cavaliersScore: number;
   }[];
   warriorsProbabilityOverTime: {
-    gameTime: string;
+    gameTime: string | null;
     warriorsWinProbability: number;
   }[];
-};
-
-type AnalyticsQuery = {
-  timeRange: string;
 };
 
 export default async function handler(
@@ -31,32 +28,7 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      const { timeRange } = req.query as AnalyticsQuery;
-
-      //const commentaryTableClient = await initializeDatabase();
       console.log("Fetching analytics data from SingleStore...");
-
-      const now = Date.now();
-      let timeDiff = 0;
-      switch (timeRange) {
-        case "30s":
-          // typescript version of DATE_SUB(NOW(), INTERVAL 30 SECOND)
-          timeDiff = 30000;
-          break;
-        case "1min":
-          timeDiff = 60000;
-          break;
-        case "5min":
-          timeDiff = 300000;
-          break;
-        case "10min":
-          timeDiff = 600000;
-          break;
-        default:
-          timeDiff = 0;
-      }
-
-      const timeFilter = new Date(now - timeDiff);
 
       // Fetch commentaries over time
       const commentariesOverTime = await db
@@ -123,12 +95,16 @@ export default async function handler(
         warriorsProbabilityOverTime,
       };
 
-      res.status(200).json(analyticsData);
+      res.status(StatusCodes.OK).json(analyticsData);
     } catch (error) {
       console.error("Error fetching analytics data:", error);
-      res.status(500).json({ error: "Error fetching analytics data" });
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: "Error fetching analytics data" });
     }
   } else {
-    res.status(405).json({ error: "Method not allowed" });
+    res
+      .status(StatusCodes.METHOD_NOT_ALLOWED)
+      .json({ error: "Method not allowed" });
   }
 }

@@ -2,6 +2,8 @@
 
 An AI-powered app to generate comments and statistics about the NBA 2016 Finals Game 7 using Drizzle ORM and SingleStore.
 
+![Demo](public/image.png)
+
 ## Features
 
 - Generate insightful comments on the game using an AI agent

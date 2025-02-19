@@ -20,17 +20,16 @@ export async function generateCommentary(
 
     try {
       const { commentary } = await generateGeminiCommentary(encodedImage);
-      //generateCommentaryWithOpenAI(encodedImage);
       console.log("Generated commentary:", commentary);
       return {
         timestamp: new Date().toISOString(),
         text: commentary,
       };
-    } catch (groqError) {
-      console.error("Error in generateCommentaryWithGroq:", groqError);
+    } catch (err) {
+      console.error("Error in generateCommentaryWithGemini:", err);
       return {
         timestamp: new Date().toISOString(),
-        text: "Error generating commentary with Groq API.",
+        text: "Error generating commentary with Gemini.",
         embedding: null,
       };
     }

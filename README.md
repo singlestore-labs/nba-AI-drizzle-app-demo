@@ -23,24 +23,38 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
    cd nba-AI-drizzle-app-demo
    ```
 
-3. Install dependencies:
+3. Install NodeJS
+
+   ```bash
+   sudo apt install nodejs
+   ```
+
+4. Install dependencies:
 
    ```bash
    pnpm install
    ```
 
+   1. Install pnpm
+
+      If you get `pnpm not found` when running the previous command, install `pnpm` using `npm`
+
+      ```bash
+      sudo npm i -g pnpm
+      ```
+
 ## Setup
 
-1. Rename the `default.env` file into `.env`:
+1. Copy the `default.env` file and name it `.env`:
 
    ```bash
-   mv default.env .env
+   cp default.env .env
    ```
 
-2. Get the `DB_URL` from [SingleStore Portal](https://portal.singlestore.com) and add it to your `.env` file:
+2. Get the `DATABASE_URL` from [SingleStore Portal](https://portal.singlestore.com) and add it to your `.env` file:
 
    ```env
-   DB_URL=your_singlestore_db_url
+   DATABASE__URL=your_singlestore_db_url
    ```
 
 3. Create the `commentary_table` in the SingleStore database using Drizzle

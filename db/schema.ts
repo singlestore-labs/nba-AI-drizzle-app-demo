@@ -5,7 +5,6 @@ import {
   singlestoreTable,
   text,
   timestamp,
-  vector,
   varchar,
 } from "drizzle-orm/singlestore-core";
 

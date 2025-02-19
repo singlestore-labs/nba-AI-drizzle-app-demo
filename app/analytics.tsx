@@ -34,32 +34,7 @@ export function Analytics({ isDarkMode }: AnalyticsProps) {
 
   const fetchLatestAnalytics = useCallback(async () => {
     try {
-      const response = {
-        ok: true,
-        json: async () => ({
-          latestCommentaries: [
-            { commentary: "Curry hits a three!", timestamp: new Date() },
-            { commentary: "Lebron dunks!", timestamp: new Date() },
-          ],
-          totalCommentaries: 100,
-          latestLatency: [
-            { timestamp: new Date(), latency: 100 },
-            { timestamp: new Date(), latency: 200 },
-          ],
-          commentariesOverTime: [
-            { date: new Date(), count: 10 },
-            { date: new Date(), count: 20 },
-          ],
-          scoresOverTime: [
-            { gameTime: "Q1", warriorsScore: 20, cavaliersScore: 10 },
-            { gameTime: "Q2", warriorsScore: 30, cavaliersScore: 20 },
-          ],
-          warriorsProbabilityOverTime: [
-            { gameTime: "Q1", warriorsWinProbability: 70 },
-            { gameTime: "Q2", warriorsWinProbability: 60 },
-          ],
-        }),
-      }; //await fetch("/api/analytics");
+      const response = await fetch("/api/analytics");
       if (!response.ok) {
         throw new Error("Failed to fetch latest analytics");
       }

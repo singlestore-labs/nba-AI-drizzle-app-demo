@@ -31,12 +31,12 @@ const Chat: React.FC<ChatProps> = ({
   // Function that handles sending a userMessage to the chat
   const onSendMessage = useCallback((userMessage: string) => {
     setCommentaries((prev) => [
-      ...prev,
       {
         timestamp: new Date().toISOString(),
         text: userMessage,
         type: "user",
       },
+      ...prev,
     ]);
   }, []);
 

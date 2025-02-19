@@ -126,12 +126,12 @@ export default function NBAAnalysis() {
       // Add the AI generated commentary to the chat
       if (data.text) {
         setCommentaries((prev) => [
-          ...prev,
           {
             timestamp: data.timestamp || new Date().toISOString(),
             text: data.text,
             type: "ai",
           },
+          ...prev,
         ]);
       } else {
         console.error("No commentaries text received from API.");

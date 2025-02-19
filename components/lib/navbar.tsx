@@ -21,7 +21,26 @@ export function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
         >
           NBA OnTheFly
         </Link>
-        <nav className="flex gap-4">
+        <h5
+          className="
+        text-nba-blue
+        dark:text-singlestore-light-purple"
+        >
+          Presented by{" "}
+          <Link
+            href="https://portal.singlestore.com/
+          "
+            target="_blank"
+            className="font-semibold  text-nba-blue
+            dark:text-singlestore-light-purple"
+          >
+            SingleStore
+          </Link>
+        </h5>
+        <nav
+          className="flex items-center
+        gap-4"
+        >
           <Button
             variant="outline"
             size="sm"

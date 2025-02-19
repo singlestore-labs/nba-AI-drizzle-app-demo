@@ -1,7 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -9,6 +14,12 @@ module.exports = {
           blue: "#17408B",
           red: "#C9082A",
           white: "#FFFFFF",
+        },
+        singlestore: {
+          "light-purple": "#D199FF",
+          purple: "#820DDF",
+          "dark-purple": "#360061",
+          white: "#F2F2F2",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -68,5 +79,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
-
+};

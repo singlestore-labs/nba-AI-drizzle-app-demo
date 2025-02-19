@@ -28,22 +28,37 @@ export default async function handler(
       console.log("Fetching analytics data from SingleStore...");
 
       // Fetch commentaries over time
-      const commentariesOverTime;
+      const commentariesOverTime = [
+        { date: new Date(), count: 10 },
+        { date: new Date(), count: 20 },
+      ];
 
       // Fetch the last 10 commentary entries
-      const latestCommentaries;
+      const latestCommentaries = [
+        { commentary: "Curry hits a three!", timestamp: new Date() },
+        { commentary: "Lebron dunks!", timestamp: new Date() },
+      ];
 
       // Fetch the latest 10 latency entries
-      const latestLatency;
+      const latestLatency = [
+        { timestamp: new Date(), latency: 100 },
+        { timestamp: new Date(), latency: 200 },
+      ];
 
       // Calculate total commentaries
-      const totalCommentaries;
+      const totalCommentaries = [{ total: 100 }];
 
       // Fetch scores over time
-      const scoresOverTime;
+      const scoresOverTime = [
+        { gameTime: "6:00", warriorsScore: 20, cavaliersScore: 10 },
+        { gameTime: "5:00", warriorsScore: 30, cavaliersScore: 20 },
+      ];
 
       // Fetch win probability over time
-      const warriorsProbabilityOverTime;
+      const warriorsProbabilityOverTime = [
+        { gameTime: "6:00", warriorsWinProbability: 70 },
+        { gameTime: "5:00", warriorsWinProbability: 60 },
+      ];
 
       const analyticsData: AnalyticsData = {
         latestCommentaries,

@@ -23,31 +23,11 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
    git clone git@github.com:singlestore-labs/nba-AI-drizzle-app-demo.git
    ```
 
-2. Navigate to the project directory:
+2. Navigate to the app directory:
 
    ```bash
-   cd nba-AI-drizzle-app-demo
+   cd nba-AI-drizzle-app-demo/app
    ```
-
-3. Install NodeJS
-
-   ```bash
-   sudo apt install nodejs
-   ```
-
-4. Install dependencies:
-
-   ```bash
-   pnpm install
-   ```
-
-   1. Install pnpm
-
-      If you get `pnpm not found` when running the previous command, install `pnpm` using `npm`
-
-      ```bash
-      sudo npm i -g pnpm
-      ```
 
 ## Setup
 
@@ -57,10 +37,10 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
    cp default.env .env
    ```
 
-2. Get the `DATABASE_URL` from [SingleStore Portal](https://portal.singlestore.com) and add it to your `.env` file:
+2. Get the `DATABASE_URL` from [SingleStore Portal](https://portal.singlestore.com) (Create New > Starter Workspace, and then Connect > Your App > Connection string) and add it to your `.env` file:
 
    ```env
-   DATABASE__URL=your_singlestore_db_url
+   DATABASE_URL=singlestore://<user>:<password>@<host>:<port>/<database>?ssl={}
    ```
 
 3. Create the `commentary_table` in the SingleStore database using Drizzle
@@ -77,8 +57,14 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
 
 ## Usage
 
-1. Start the application:
+1. Go to the project directory:
+
+   ```bash
+   cd ..
+   ```
+
+2. Start the application:
    ```bash
    pnpm dev
    ```
-2. Open your browser and navigate to [http://localhost:3001](http://localhost:3001)
+3. Open your browser and navigate to [http://localhost:3001](http://localhost:3001)

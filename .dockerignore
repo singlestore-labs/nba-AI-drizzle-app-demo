@@ -1,0 +1,8 @@
+node_modules
+.vscode
+docker-compose.yml
+Dockerfile
+default.env
+.env
+README.md
+drizzle

@@ -65,6 +65,6 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
 
 2. Start the application:
    ```bash
-   pnpm dev
+   docker compose up --build
    ```
 3. Open your browser and navigate to [http://localhost:3001](http://localhost:3001)

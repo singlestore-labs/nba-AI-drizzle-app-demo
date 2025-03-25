@@ -1,5 +1,8 @@
 "use server";
 
+import { db } from "@/db";
+import { commentaryTable } from "@/db/schema";
+import { asc } from "drizzle-orm";
 import { StatusCodes } from "http-status-codes";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -29,37 +32,63 @@ export default async function handler(
       // TODO(milestone3): Fetch analytics data from SingleStore
 
       // Fetch commentaries over time
-      const commentariesOverTime = [
-        { date: new Date(), count: 10 },
-        { date: new Date(), count: 20 },
-      ];
+      const commentariesOverTime = await db
+      .select({
+        date: commentaryTable.timestamp,
+        count: db.$count(commentaryTable),
+      })
+      .from(commentaryTable)
+      .groupBy(commentaryTable.timestamp)
+      .orderBy(asc(commentaryTable.timestamp));
 
       // Fetch the last 10 commentary entries
-      const latestCommentaries = [
-        { commentary: "Curry hits a three!", timestamp: new Date() },
-        { commentary: "Lebron dunks!", timestamp: new Date() },
-      ];
+      const latestCommentaries = await db
+        .select({
+          commentary: commentaryTable.commentary,
+          timestamp: commentaryTable.timestamp,
+        })
+        .from(commentaryTable)
+        .orderBy(asc(commentaryTable.timestamp))
+        .limit(5);
 
       // Fetch the latest 10 latency entries
-      const latestLatency = [
-        { timestamp: new Date(), latency: 100 },
-        { timestamp: new Date(), latency: 200 },
-      ];
+
+      const latestLatency = await db
+        .select({
+          timestamp: commentaryTable.timestamp,
+          latency: commentaryTable.latency ?? 0,
+        })
+        .from(commentaryTable)
+        .orderBy(asc(commentaryTable.timestamp))
+        .limit(10);
 
       // Calculate total commentaries
-      const totalCommentaries = [{ total: 100 }];
+      const totalCommentaries = await db
+        .select({
+          total: db.$count(commentaryTable),
+        })
+        .from(commentaryTable);
 
       // Fetch scores over time
-      const scoresOverTime = [
-        { gameTime: "6:00", warriorsScore: 20, cavaliersScore: 10 },
-        { gameTime: "5:00", warriorsScore: 30, cavaliersScore: 20 },
-      ];
+
+      const scoresOverTime = await db
+        .select({
+          gameTime: commentaryTable.game_clock,
+          warriorsScore: commentaryTable.warriors_score,
+          cavaliersScore: commentaryTable.cavaliers_score,
+        })
+        .from(commentaryTable)
+        .orderBy(asc(commentaryTable.timestamp));
 
       // Fetch win probability over time
-      const warriorsProbabilityOverTime = [
-        { gameTime: "6:00", warriorsWinProbability: 70 },
-        { gameTime: "5:00", warriorsWinProbability: 60 },
-      ];
+
+      const warriorsProbabilityOverTime = await db
+        .select({
+          gameTime: commentaryTable.game_clock,
+          warriorsWinProbability: commentaryTable.warriors_win_probability,
+        })
+        .from(commentaryTable)
+        .orderBy(asc(commentaryTable.timestamp));
 
       const analyticsData: AnalyticsData = {
         latestCommentaries,

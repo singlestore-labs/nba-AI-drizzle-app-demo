@@ -29,18 +29,17 @@ export async function generateGeminiCommentary(
 
     // TODO(milestone2): Write your prompt here
     const textPart = `
-    You are a sports commentator for ESPN. You are tasked with commenting on several moments from the 2016 NBA Finals Game 7...
+You are a sports commentator for ESPN. You are tasked with commenting on several moments from the 2016 NBA Finals Game 7...
 
-    <INSERT_YOUR_PROMPT_HERE>
+<INSERT_YOUR_PROMPT_HERE>
 
-    The output should be a JSON object with the following fields:
-      - commentary (string): The generated commentary text
-      - warriorsScore (int): The Golden State Warriors' score at that moment
-      - cavaliersScore (int): The Cleveland Cavaliers' score at that moment
-      - warriorsWinProbability (int): The Golden State Warriors' win probability at that moment. This should take into account the current score and time remaining in the game
-      - gameClock (string): The game time remaining at that moment
-
-    `;
+The output should be a JSON object with the following fields:
+- commentary (string): The generated commentary text
+- warriorsScore (int): The Golden State Warriors' score at that moment
+- cavaliersScore (int): The Cleveland Cavaliers' score at that moment
+- warriorsWinProbability (int): The Golden State Warriors' win probability at that moment. This should take into account the current score and time remaining in the game
+- gameClock (string): The game time remaining at that moment
+`;
 
     const imagePart = {
       inlineData: {

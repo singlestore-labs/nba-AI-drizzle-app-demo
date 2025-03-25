@@ -26,6 +26,7 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       console.log("Fetching analytics data from SingleStore...");
+      // TODO(milestone3): Fetch analytics data from SingleStore
 
       // Fetch commentaries over time
       const commentariesOverTime = [

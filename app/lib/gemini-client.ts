@@ -27,7 +27,7 @@ export async function generateGeminiCommentary(
   try {
     const startTime = Date.now();
 
-    // Write your prompt here
+    // TODO(milestone2): Write your prompt here
     const textPart = `
     You are a sports commentator for ESPN. You are tasked with commenting on several moments from the 2016 NBA Finals Game 7...
 

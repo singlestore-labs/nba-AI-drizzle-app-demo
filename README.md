@@ -68,3 +68,9 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
    docker compose up --build
    ```
 3. Open your browser and navigate to [http://localhost:3001](http://localhost:3001)
+
+## Milestones
+
+1. Setup the repository and run the app
+2. The comments are a bit lame; fix them! Search for `TODO(milestone2)`
+3. The analytics we're showing are mocked-up; fetch them from the DB! Search for `TODO(milestone3)`

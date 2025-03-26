@@ -2,11 +2,11 @@
 
 An AI-powered app to generate comments and statistics about the NBA 2016 Finals Game 7 using Drizzle ORM and SingleStore.
 
-![Demo](public/demo.png)
+![Demo](app/public/demo.png)
 
 ## Architecture
 
-![architecture](public/architecture.png)
+![architecture](app/public/architecture.png)
 
 ## Features
 
@@ -23,10 +23,10 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
    git clone git@github.com:singlestore-labs/nba-AI-drizzle-app-demo.git
    ```
 
-2. Navigate to the app directory:
+2. Navigate to the repository:
 
    ```bash
-   cd nba-AI-drizzle-app-demo/app
+   cd nba-AI-drizzle-app-demo
    ```
 
 ## Setup
@@ -37,19 +37,15 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
    cp default.env .env
    ```
 
-2. Get the `DATABASE_URL` from [SingleStore Portal](https://portal.singlestore.com) (Create New > Starter Workspace, and then Connect > Your App > Connection string) and add it to your `.env` file:
+2. Get the `DATABASE_URL` from [SingleStore Portal](https://portal.singlestore.com). If you are creating a new account, when prompted to _Load Data_, choose instead _Explore on my own_. Then go to _Deployments_ (on the left sidebar) > _Connect_ > _Your App_ and pick language `Node.js + Drizzle` in the dropdown. Then, copy the connection string and add it to your`.env` file:
 
    ```env
    DATABASE_URL=singlestore://<user>:<password>@<host>:<port>/<database>?ssl={}
    ```
 
-3. Create the `commentary_table` in the SingleStore database using Drizzle
+(Note: if your connection string has a placeholder in the password field, press _Reset Password_, accept the suggested password, and you can now copy the connection string with the password).
 
-   ```shell
-   pnpm migrate
-   ```
-
-4. Get the Gemini API key from [Google Gemini API Documentation](https://ai.google.dev/gemini-api/docs/api-key) and add it to your `.env` file:
+3. Get the Gemini API key from [Google Gemini API Documentation](https://ai.google.dev/gemini-api/docs/api-key) and add it to your `.env` file:
 
    ```env
    GEMINI_API_KEY=your_gemini_api_key

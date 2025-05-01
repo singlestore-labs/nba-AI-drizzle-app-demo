@@ -20,7 +20,7 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
 1. Clone the repository:
 
    ```bash
-   git clone git@github.com:singlestore-labs/nba-AI-drizzle-app-demo.git
+   git clone https://github.com/singlestore-labs/nba-AI-drizzle-app-demo.git
    ```
 
 2. Navigate to the repository:
@@ -53,17 +53,11 @@ An AI-powered app to generate comments and statistics about the NBA 2016 Finals 
 
 ## Usage
 
-1. Go to the project directory:
-
-   ```bash
-   cd ..
-   ```
-
-2. Start the application:
+1. Start the application:
    ```bash
    docker compose up --build
    ```
-3. Open your browser and navigate to [http://localhost:3001](http://localhost:3001)
+2. Open your browser and navigate to [http://localhost:3001](http://localhost:3001)
 
 ## Milestones
 
